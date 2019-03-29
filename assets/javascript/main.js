@@ -26,11 +26,22 @@ const characters = [
 
 // 1 add heros to characters div
 const charactersDiv = document.getElementById('characters');
+const heroDiv = document.getElementById('hero');
+const defenderDiv = document.getElementById('defender');
 // Loop through the characters and add them to CharactersDiv
+let hero;
+let defender;
 function select(e) {
   console.log(e.target.parentNode.id);
-  const hero = document.getElementById(e.target.parentNode.id);
-  charactersDiv.removeChild(hero);
+  if (!hero) {
+    hero = document.getElementById(e.target.parentNode.id);
+    charactersDiv.removeChild(hero);
+    heroDiv.append(hero);
+  } else if (!defender) {
+    defender = document.getElementById(e.target.parentNode.id);
+    charactersDiv.removeChild(defender);
+    defenderDiv.append(defender);
+  }
 }
 
 characters.forEach(character => {
