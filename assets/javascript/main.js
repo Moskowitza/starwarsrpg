@@ -28,19 +28,32 @@ const characters = [
 const charactersDiv = document.getElementById('characters');
 const heroDiv = document.getElementById('hero');
 const defenderDiv = document.getElementById('defender');
+const attackBtn = document.getElementById('attack');
 // Loop through the characters and add them to CharactersDiv
+let heroNode;
+let defenderNode;
 let hero;
 let defender;
+
 function select(e) {
   console.log(e.target.parentNode.id);
+  const selectedName = e.target.parentNode.id;
+  // console.log(selectedName);
   if (!hero) {
-    hero = document.getElementById(e.target.parentNode.id);
-    charactersDiv.removeChild(hero);
-    heroDiv.append(hero);
+    hero = characters.find(character => character.name === selectedName);
+    console.log(hero);
   } else if (!defender) {
-    defender = document.getElementById(e.target.parentNode.id);
-    charactersDiv.removeChild(defender);
-    defenderDiv.append(defender);
+    defender = characters.find(character => character.name === selectedName);
+    console.log(defender);
+  }
+  if (!heroNode) {
+    heroNode = document.getElementById(e.target.parentNode.id);
+    charactersDiv.removeChild(heroNode);
+    heroDiv.append(heroNode);
+  } else if (!defenderNode) {
+    defenderNode = document.getElementById(e.target.parentNode.id);
+    charactersDiv.removeChild(defenderNode);
+    defenderDiv.append(defenderNode);
   }
 }
 
@@ -56,3 +69,5 @@ characters.forEach(character => {
   charCard.addEventListener('click', select, false);
   charactersDiv.appendChild(charCard);
 });
+
+// FIGHT!
