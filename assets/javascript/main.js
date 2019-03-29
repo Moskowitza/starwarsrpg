@@ -27,16 +27,18 @@ const characters = [
 // 1 add heros to characters div
 const charactersDiv = document.getElementById('characters');
 // Loop through the characters and add them to CharactersDiv
+function select(e) {
+  console.log(e.target.parentNode.id);
+}
+
 characters.forEach(character => {
   console.log(character);
   const charCard = document.createElement('DIV');
   charCard.innerHTML = `
-    <div id=${character.name} class="character" onClick=${select}>
-    <img src="assets/images/${character.name}.jpg">
-    <p>${character.name}</p>
+    <div id=${character.name} class="character">
+        <img src="assets/images/${character.name}.jpg">
+        <p>${character.name}</p>
     </div>`;
+  charCard.addEventListener('click', select, false);
   charactersDiv.appendChild(charCard);
 });
-function select() {
-  console.log(this);
-}
