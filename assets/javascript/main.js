@@ -29,16 +29,19 @@ const charactersDiv = document.getElementById('characters');
 // Loop through the characters and add them to CharactersDiv
 function select(e) {
   console.log(e.target.parentNode.id);
+  const hero = document.getElementById(e.target.parentNode.id);
+  charactersDiv.removeChild(hero);
 }
 
 characters.forEach(character => {
   console.log(character);
   const charCard = document.createElement('DIV');
+  charCard.setAttribute('id', character.name);
+  charCard.setAttribute('class', 'character');
   charCard.innerHTML = `
-    <div id=${character.name} class="character">
         <img src="assets/images/${character.name}.jpg">
         <p>${character.name}</p>
-    </div>`;
+      `;
   charCard.addEventListener('click', select, false);
   charactersDiv.appendChild(charCard);
 });
