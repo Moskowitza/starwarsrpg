@@ -6,7 +6,7 @@ const characters = [
     healthPoints: 100,
     attackPower: 8,
     attackModifier: 8,
-    counterAttack: 100,
+    counterAttack: 10,
     takeDamage(damage) {
       this.healthPoints =
         this.healthPoints - (Math.floor(Math.random() * 20) + damage);
@@ -21,7 +21,7 @@ const characters = [
     healthPoints: 100,
     attackPower: 7,
     attackModifier: 7,
-    counterAttack: 100,
+    counterAttack: 10,
     takeDamage(damage) {
       this.healthPoints =
         this.healthPoints - (Math.floor(Math.random() * 20) + damage);
@@ -36,7 +36,7 @@ const characters = [
     healthPoints: 100,
     attackPower: 6,
     attackModifier: 6,
-    counterAttack: 100,
+    counterAttack: 11,
     takeDamage(damage) {
       this.healthPoints =
         this.healthPoints - (Math.floor(Math.random() * 20) + damage);
@@ -99,10 +99,22 @@ function createCard(character) {
   charCard.setAttribute("class", "character");
   charCard.innerHTML = `
         <img src="assets/images/${character.name}.jpg">
-        <p>${character.name}</p>
-        <p>HP ${character.healthPoints}</p>
+        <div class="info">
+        <p class="charName">${character.name}</p>
+        <p class="healthPoints attribute">Health ${character.healthPoints}</p>
+        <p class="attackPower attribute">Attack Power ${
+          character.attackPower
+        }</p>
+        <p class="counterAttack attribute">Defence Attack ${
+          character.counterAttack
+        }</p>
+        </div>
       `;
   charCard.addEventListener("click", select, false);
+  if (defenderNode) {
+    // keep adding active class back
+    charCard.setAttribute("class", "active");
+  }
   return charCard;
 }
 function loadCharacters() {
@@ -119,7 +131,7 @@ function updateBattleField() {
 }
 function battle() {
   // Assign new damage to each fighter
-  hero.takeDamage(defender.attackPower);
+  hero.takeDamage(defender.counterAttack);
   defender.takeDamage(hero.attackPower);
   hero.powerUp();
   // WE need to update the DOM, empty the divs and reappend..IF game isn't over
