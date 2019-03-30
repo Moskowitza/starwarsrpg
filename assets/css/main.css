@@ -10,13 +10,12 @@ body {
   background: black;
 }
 #header h1 {
-  font-family: staroutline;
-  font-size: 40px;
+  font-family: starwars;
+  font-size: 80px;
   color: yellow;
   background: black;
   text-align: center;
-  text-decoration: aquamarine;
-  text-decoration-line: underline;
+
   font-style: italic;
 }
 #header h2 {
@@ -34,24 +33,62 @@ body {
   min-height: 200px;
   background: black;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 /* Battle Field */
-
+#title {
+  font-family: starwars;
+  text-align: center;
+  color: yellow;
+  font-size: 40px;
+}
+#battlefield {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: stretch;
+  align-items: center;
+  flex-wrap: wrap;
+}
 #hero {
-  height: 300px;
-  width: 300px;
+  height: auto;
+  width: auto;
+  padding: 20px;
+  margin: 20px;
   background: linear-gradient(to right, cornflowerblue, red);
+  border-radius: 10px;
+  flex-basis: auto;
 }
 #defender {
-  height: 300px;
-  width: 300px;
+  height: auto;
+  width: auto;
+  padding: 20px;
+  margin: 20px;
   background: linear-gradient(to right, salmon, pink);
+  border-radius: 10px;
+  flex-basis: auto;
 }
 #attack {
   width: 50px;
   background: linear-gradient(to right, red, purple);
   border-radius: 5px;
+  font-family: starwars;
+  text-align: center;
+  background: blue;
+  color: yellow;
+  padding: 20px;
+}
+.announcement {
+  align-self: center;
+  font-family: starwars;
+  font-size: 20px;
+  color: yellow;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  text-align: center;
+  font-style: italic;
 }
 
 @keyframes shake {
@@ -82,8 +119,9 @@ body {
   backface-visibility: hidden;
   perspective: 1000px;
 }
-#battlefield {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+#attack:target {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }

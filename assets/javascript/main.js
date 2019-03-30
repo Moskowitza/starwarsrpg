@@ -77,20 +77,16 @@ let defender;
 // Score
 // const wins;
 // const losses;
-
-let remainingCharacters = [...characters];
-// Select hero and defender
 function select(e) {
   const selectedName = e.target.parentNode.id;
   if (!hero) {
     // if no hero, make one
     hero = characters.find(character => character.name === selectedName);
-    remainingCharacters = remainingCharacters.filter(char => char !== hero);
+    // remainingCharacters = remainingCharacters.filter(char => char !== hero);
   } else if (!defender) {
     // if there is a hero but no defender..
     defender = characters.find(character => character.name === selectedName);
-    console.log(defender);
-    remainingCharacters = remainingCharacters.filter(char => char !== defender);
+    // remainingCharacters = remainingCharacters.filter(char => char !== defender);
   }
   if (!heroNode) {
     // 1) if no heroNode, get it from charactersDiv
@@ -99,9 +95,11 @@ function select(e) {
     // 2) remove it from the charactersDiv
     charactersDiv.removeChild(heroNode);
     // 3) And place it in the heroDiv
+    heroDiv.innerHTML = "";
     heroDiv.append(heroNode);
   } else if (!defenderNode) {
     // Repeat Pattern for defender
+    defenderDiv.innerHTML = "";
     defenderNode = document.getElementById(selectedName);
     defenderNode.setAttribute("class", "active");
     charactersDiv.removeChild(defenderNode);
@@ -127,7 +125,7 @@ function createCard(character) {
         }pts.</p>
         </div>
       `;
-  charCard.addEventListener("click", select, false);
+  charCard.addEventListener("click", select);
   if (defenderNode) {
     // keep adding active class back
     charCard.setAttribute("class", "active");
@@ -139,7 +137,21 @@ function loadCharacters() {
     charactersDiv.appendChild(createCard(character));
   });
 }
-loadCharacters();
+
+function reset() {
+  charactersDiv.innerHTML = null;
+  heroNode = null;
+  defenderNode = null;
+  hero = null;
+  defender = null;
+  loadCharacters();
+  defenderDiv.textContent = `Pick a Defender`;
+  heroDiv.textContent = `Pick a Hero`;
+}
+
+// const remainingCharacters = [...characters];
+// Select hero and defender
+
 function updateBattleField() {
   heroDiv.innerHTML = "";
   heroDiv.appendChild(createCard(hero));
@@ -166,23 +178,26 @@ function battle() {
       } health remaining`
       // todo RESET
     );
+    reset();
   } else if (defender.healthPoints < 0) {
     if (remainingCharacters.length > 0) {
       alert(
         `Yeahoooo ${defender.name} has been defeted. Who will you fight next?`
       );
       defenderDiv.innerHTML = "";
-      defenderDiv.innerHTML = `<h2>Pick your next Defender</h2>`;
+      defenderDiv.textContent = `Pick your next defender`;
       defender = null;
       defenderNode = null;
     } else {
       // show winning modal
-      alert(`${defender.name} has been defeted. You are the champion`);
+      alert(`${defender.name} has been defeated. You are the champion`);
       // Reset
+      reset();
     }
     // Pick New Defender resets game
   }
 }
 
-// FIGHT!
+// Kick off the Game
+reset();
 attackBtn.addEventListener("click", battle);
