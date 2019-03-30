@@ -1,6 +1,18 @@
+@font-face {
+  font-family: starwars;
+  src: url("../fonts/stjedise/STJEDISE.TTF");
+}
+#header {
+  font-family: starwars;
+  font-size: 40px;
+  color: yellow;
+}
+
 #characters {
   display: flex;
   flex-direction: row;
+  height: 200px;
+  background: black;
 }
 .character {
   height: 100px;

@@ -4,55 +4,72 @@ const characters = [
     name: 'yoda',
     age: 1000,
     healthPoints: 100,
-    attackPower: 100,
+    attackPower: 8,
+    attackModifier: 8,
     counterAttack: 100,
-    takeDamage() {
+    takeDamage(damage) {
       this.healthPoints =
-        this.healthPoints - Math.floor(Math.random() * 50) + 1;
+        this.healthPoints - (Math.floor(Math.random() * 20) + damage);
+    },
+    powerUp() {
+      this.attackPower = this.attackPower + this.attackModifier;
     },
   },
   {
     name: 'luke',
     age: 1000,
     healthPoints: 100,
-    attackPower: 100,
+    attackPower: 7,
+    attackModifier: 7,
     counterAttack: 100,
-    takeDamage() {
+    takeDamage(damage) {
       this.healthPoints =
-        this.healthPoints - Math.floor(Math.random() * 50) + 1;
+        this.healthPoints - (Math.floor(Math.random() * 20) + damage);
+    },
+    powerUp() {
+      this.attackPower = this.attackPower + this.attackModifier;
     },
   },
   {
     name: 'chewie',
     age: 1000,
     healthPoints: 100,
-    attackPower: 100,
+    attackPower: 6,
+    attackModifier: 6,
     counterAttack: 100,
-    takeDamage() {
+    takeDamage(damage) {
       this.healthPoints =
-        this.healthPoints - Math.floor(Math.random() * 50) + 1;
+        this.healthPoints - (Math.floor(Math.random() * 20) + damage);
+    },
+    powerUp() {
+      this.attackPower = this.attackPower + this.attackModifier;
     },
   },
 ];
 
-// 1 add heros to characters div
+// Select our Dom Elements
 const charactersDiv = document.getElementById('characters');
 const heroDiv = document.getElementById('hero');
 const defenderDiv = document.getElementById('defender');
 const attackBtn = document.getElementById('attack');
-// Loop through the characters and add them to CharactersDiv
-let heroNode; // the player HTML card
+// the HTML cards
+let heroNode;
 let defenderNode;
-let hero; // the hero object
+// the objects we're moving to play area
+let hero;
 let defender;
-let remainingCharacters = characters;
+// todo create a score system
+// Score
+// const wins;
+// const losses;
+
+let remainingCharacters = [...characters];
+// Select hero and defender
 function select(e) {
   const selectedName = e.target.parentNode.id;
-  // console.log(selectedName);
   if (!hero) {
     // if no hero, make one
     hero = characters.find(character => character.name === selectedName);
-    console.log(hero);
     remainingCharacters = remainingCharacters.filter(char => char !== hero);
   } else if (!defender) {
     // if there is a hero but no defender..
@@ -86,32 +103,53 @@ function createCard(character) {
   charCard.addEventListener('click', select, false);
   return charCard;
 }
-
-characters.forEach(character => {
-  charactersDiv.appendChild(createCard(character));
-});
-
+function loadCharacters() {
+  characters.forEach(character => {
+    charactersDiv.appendChild(createCard(character));
+  });
+}
+loadCharacters();
+function updateBattleField() {
+  heroDiv.innerHTML = '';
+  heroDiv.appendChild(createCard(hero));
+  defenderDiv.innerHTML = '';
+  defenderDiv.appendChild(createCard(defender));
+}
 function battle() {
   // Assign new damage to each fighter
-  hero.takeDamage();
-  defender.takeDamage();
+  hero.takeDamage(defender.attackPower);
+  defender.takeDamage(hero.attackPower);
+  hero.powerUp();
   // WE need to update the DOM, empty the divs and reappend..IF game isn't over
   if (hero.healthPoints >= 0 && defender.healthPoints >= 0) {
-    heroDiv.innerHTML = '';
-    heroDiv.appendChild(createCard(hero));
-    defenderDiv.innerHTML = '';
-    defenderDiv.appendChild(createCard(defender));
+    updateBattleField();
+    // heroDiv.innerHTML = '';
+    // heroDiv.appendChild(createCard(hero));
+    // defenderDiv.innerHTML = '';
+    // defenderDiv.appendChild(createCard(defender));
   } else if (hero.healthPoints < 0) {
+    // show losing Modal
     alert(
       `you lose, rebel scum! ${hero.name} has ${
         hero.healthPoints
       } health remaining`
+      // todo RESET
     );
   } else if (defender.healthPoints < 0) {
-    alert(`Yeahoooo ${defender.name} has been defeted`);
-    defender = characters[0];
-    defenderDiv.innerHTML = '';
-    defenderDiv.appendChild(createCard(defender));
+    if (remainingCharacters.length > 0) {
+      alert(
+        `Yeahoooo ${defender.name} has been defeted. Who will you fight next?`
+      );
+      defenderDiv.innerHTML = '';
+      defenderDiv.innerHTML = `<h2>Pick your next Defender</h2>`;
+      defender = null;
+      defenderNode = null;
+    } else {
+      // show winning modal
+      alert(`${defender.name} has been defeted. You are the champion`);
+      // Reset
+    }
+    // Pick New Defender resets game
   }
 }
 
