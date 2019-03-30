@@ -7,6 +7,10 @@ const characters = [
     healthPoints: 100,
     attackPower: 100,
     counterAttack: 100,
+    takeDamage() {
+      this.healthPoints =
+        this.healthPoints - Math.floor(Math.random() * 50) + 1;
+    },
   },
   {
     name: 'luke',
@@ -14,6 +18,10 @@ const characters = [
     healthPoints: 100,
     attackPower: 100,
     counterAttack: 100,
+    takeDamage() {
+      this.healthPoints =
+        this.healthPoints - Math.floor(Math.random() * 50) + 1;
+    },
   },
   {
     name: 'chewie',
@@ -21,6 +29,10 @@ const characters = [
     healthPoints: 100,
     attackPower: 100,
     counterAttack: 100,
+    takeDamage() {
+      this.healthPoints =
+        this.healthPoints - Math.floor(Math.random() * 50) + 1;
+    },
   },
 ];
 
@@ -30,9 +42,10 @@ const heroDiv = document.getElementById('hero');
 const defenderDiv = document.getElementById('defender');
 const attackBtn = document.getElementById('attack');
 // Loop through the characters and add them to CharactersDiv
-let heroNode;
+
+let heroNode; // the player HTML card
 let defenderNode;
-let hero;
+let hero; // the object
 let defender;
 
 function select(e) {
@@ -40,34 +53,59 @@ function select(e) {
   const selectedName = e.target.parentNode.id;
   // console.log(selectedName);
   if (!hero) {
+    // if no hero, make one
     hero = characters.find(character => character.name === selectedName);
     console.log(hero);
   } else if (!defender) {
+    // if there is a hero but no defender..
     defender = characters.find(character => character.name === selectedName);
     console.log(defender);
   }
   if (!heroNode) {
-    heroNode = document.getElementById(e.target.parentNode.id);
+    // 1) if no heroNode, get it from charactersDiv
+    heroNode = document.getElementById(selectedName);
+    // 2) remove it from the charactersDiv
     charactersDiv.removeChild(heroNode);
+    // 3) And place it in the heroDiv
     heroDiv.append(heroNode);
   } else if (!defenderNode) {
-    defenderNode = document.getElementById(e.target.parentNode.id);
+    // Repeat Pattern for defender
+    defenderNode = document.getElementById(selectedName);
     charactersDiv.removeChild(defenderNode);
     defenderDiv.append(defenderNode);
   }
 }
-
-characters.forEach(character => {
-  console.log(character);
+function createCard(character) {
   const charCard = document.createElement('DIV');
   charCard.setAttribute('id', character.name);
   charCard.setAttribute('class', 'character');
   charCard.innerHTML = `
         <img src="assets/images/${character.name}.jpg">
         <p>${character.name}</p>
+        <p>HP ${character.healthPoints}</p>
       `;
   charCard.addEventListener('click', select, false);
-  charactersDiv.appendChild(charCard);
+  return charCard;
+}
+
+characters.forEach(character => {
+  charactersDiv.appendChild(createCard(character));
 });
 
+function battle() {
+  // Assign new damage to each fighter
+  hero.takeDamage();
+  defender.takeDamage();
+
+  // WE need to update the DOM
+  heroDiv.innerHTML = '';
+  // update heroNode with new hps
+  heroDiv.appendChild(createCard(hero));
+  defenderDiv.innerHTML = '';
+  defenderDiv.appendChild(createCard(defender));
+  // rite a function that creates a character card
+  // put hero back in herodiv, defender in defenderDiv
+}
+
 // FIGHT!
+attackBtn.addEventListener('click', battle);
