@@ -17,8 +17,8 @@ const characters = [
   },
   {
     name: "luke",
-    age: 1000,
-    healthPoints: 100,
+    age: 40,
+    healthPoints: 95,
     attackPower: 7,
     attackModifier: 7,
     counterAttack: 10,
@@ -32,8 +32,23 @@ const characters = [
   },
   {
     name: "chewie",
-    age: 1000,
-    healthPoints: 100,
+    age: 100,
+    healthPoints: 80,
+    attackPower: 6,
+    attackModifier: 6,
+    counterAttack: 11,
+    takeDamage(damage) {
+      this.healthPoints =
+        this.healthPoints - (Math.floor(Math.random() * 20) + damage);
+    },
+    powerUp() {
+      this.attackPower = this.attackPower + this.attackModifier;
+    },
+  },
+  {
+    name: "leia",
+    age: 40,
+    healthPoints: 90,
     attackPower: 6,
     attackModifier: 6,
     counterAttack: 11,
@@ -101,13 +116,15 @@ function createCard(character) {
         <img src="assets/images/${character.name}.jpg">
         <div class="info">
         <p class="charName">${character.name}</p>
-        <p class="healthPoints attribute">Health ${character.healthPoints}</p>
-        <p class="attackPower attribute">Attack Power ${
+        <p class="healthPoints attribute">Health: ${
+          character.healthPoints
+        }pts.</p>
+        <p class="attackPower attribute">Attack Power: ${
           character.attackPower
-        }</p>
-        <p class="counterAttack attribute">Defence Attack ${
+        }pts.</p>
+        <p class="counterAttack attribute">Counter Attack: ${
           character.counterAttack
-        }</p>
+        }pts.</p>
         </div>
       `;
   charCard.addEventListener("click", select, false);

@@ -1,11 +1,12 @@
 .character {
   height: 100px;
-  width: 150px;
+  width: auto;
   padding: 1rem;
   position: relative;
   background: linear-gradient(to left, yellow, red, purple);
   padding: 3px;
   margin: 5px;
+  border: lightgoldenrodyellow solid 3px;
   border-radius: 3px;
   display: flex;
   flex-direction: row;
@@ -30,6 +31,7 @@ img {
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-weight: 100;
   font-style: italic;
+  text-decoration-line: underline;
 }
 .charName::first-letter {
   text-transform: uppercase;

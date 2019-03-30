@@ -6,6 +6,9 @@
   font-family: staroutline;
   src: url("../fonts/starjout/Starjout.ttf");
 }
+body {
+  background: black;
+}
 #header h1 {
   font-family: staroutline;
   font-size: 40px;
@@ -22,14 +25,13 @@
   color: yellow;
   background: black;
   text-align: center;
-
   font-style: italic;
 }
 
 #characters {
   display: flex;
   flex-direction: row;
-  height: 200px;
+  min-height: 200px;
   background: black;
   justify-content: space-evenly;
 }
