@@ -1,7 +1,7 @@
 // create characters each character has Health Points`, `Attack Power` and `Counter Attack Power`.
 const characters = [
   {
-    name: 'yoda',
+    name: "yoda",
     age: 1000,
     healthPoints: 100,
     attackPower: 8,
@@ -16,7 +16,7 @@ const characters = [
     },
   },
   {
-    name: 'luke',
+    name: "luke",
     age: 1000,
     healthPoints: 100,
     attackPower: 7,
@@ -31,7 +31,7 @@ const characters = [
     },
   },
   {
-    name: 'chewie',
+    name: "chewie",
     age: 1000,
     healthPoints: 100,
     attackPower: 6,
@@ -48,10 +48,10 @@ const characters = [
 ];
 
 // Select our Dom Elements
-const charactersDiv = document.getElementById('characters');
-const heroDiv = document.getElementById('hero');
-const defenderDiv = document.getElementById('defender');
-const attackBtn = document.getElementById('attack');
+const charactersDiv = document.getElementById("characters");
+const heroDiv = document.getElementById("hero");
+const defenderDiv = document.getElementById("defender");
+const attackBtn = document.getElementById("attack");
 // the HTML cards
 let heroNode;
 let defenderNode;
@@ -80,6 +80,7 @@ function select(e) {
   if (!heroNode) {
     // 1) if no heroNode, get it from charactersDiv
     heroNode = document.getElementById(selectedName);
+    heroNode.setAttribute("class", "active");
     // 2) remove it from the charactersDiv
     charactersDiv.removeChild(heroNode);
     // 3) And place it in the heroDiv
@@ -87,20 +88,21 @@ function select(e) {
   } else if (!defenderNode) {
     // Repeat Pattern for defender
     defenderNode = document.getElementById(selectedName);
+    defenderNode.setAttribute("class", "active");
     charactersDiv.removeChild(defenderNode);
     defenderDiv.append(defenderNode);
   }
 }
 function createCard(character) {
-  const charCard = document.createElement('DIV');
-  charCard.setAttribute('id', character.name);
-  charCard.setAttribute('class', 'character');
+  const charCard = document.createElement("DIV");
+  charCard.setAttribute("id", character.name);
+  charCard.setAttribute("class", "character");
   charCard.innerHTML = `
         <img src="assets/images/${character.name}.jpg">
         <p>${character.name}</p>
         <p>HP ${character.healthPoints}</p>
       `;
-  charCard.addEventListener('click', select, false);
+  charCard.addEventListener("click", select, false);
   return charCard;
 }
 function loadCharacters() {
@@ -110,9 +112,9 @@ function loadCharacters() {
 }
 loadCharacters();
 function updateBattleField() {
-  heroDiv.innerHTML = '';
+  heroDiv.innerHTML = "";
   heroDiv.appendChild(createCard(hero));
-  defenderDiv.innerHTML = '';
+  defenderDiv.innerHTML = "";
   defenderDiv.appendChild(createCard(defender));
 }
 function battle() {
@@ -140,7 +142,7 @@ function battle() {
       alert(
         `Yeahoooo ${defender.name} has been defeted. Who will you fight next?`
       );
-      defenderDiv.innerHTML = '';
+      defenderDiv.innerHTML = "";
       defenderDiv.innerHTML = `<h2>Pick your next Defender</h2>`;
       defender = null;
       defenderNode = null;
@@ -154,4 +156,4 @@ function battle() {
 }
 
 // FIGHT!
-attackBtn.addEventListener('click', battle);
+attackBtn.addEventListener("click", battle);

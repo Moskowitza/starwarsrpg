@@ -2,10 +2,28 @@
   font-family: starwars;
   src: url("../fonts/stjedise/STJEDISE.TTF");
 }
-#header {
-  font-family: starwars;
+@font-face {
+  font-family: staroutline;
+  src: url("../fonts/starjout/Starjout.ttf");
+}
+#header h1 {
+  font-family: staroutline;
   font-size: 40px;
   color: yellow;
+  background: black;
+  text-align: center;
+  text-decoration: aquamarine;
+  text-decoration-line: underline;
+  font-style: italic;
+}
+#header h2 {
+  font-family: staroutline;
+  font-size: 20px;
+  color: yellow;
+  background: black;
+  text-align: center;
+
+  font-style: italic;
 }
 
 #characters {
@@ -13,23 +31,11 @@
   flex-direction: row;
   height: 200px;
   background: black;
+  justify-content: space-evenly;
 }
-.character {
-  height: 100px;
-  width: 150px;
-  padding: 1rem;
-  position: relative;
-  background: linear-gradient(to left, yellow, red, purple);
-  padding: 3px;
-  margin: 5px;
-  border-radius: 3px;
-  display: flex;
-  flex-direction: row;
-}
-img {
-  height: 98%;
-  border-radius: 3px;
-}
+
+/* Battle Field */
+
 #hero {
   height: 300px;
   width: 300px;
@@ -38,7 +44,6 @@ img {
 #defender {
   height: 300px;
   width: 300px;
-
   background: linear-gradient(to right, salmon, pink);
 }
 #attack {

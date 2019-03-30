@@ -1,0 +1,28 @@
+.character {
+  height: 100px;
+  width: 150px;
+  padding: 1rem;
+  position: relative;
+  background: linear-gradient(to left, yellow, red, purple);
+  padding: 3px;
+  margin: 5px;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: row;
+}
+img {
+  height: 98%;
+  border-radius: 50%;
+}
+.character .active {
+  height: 200px;
+  width: 250px;
+  padding: 1rem;
+  position: relative;
+  background: linear-gradient(to left, yellow, red, purple);
+  padding: 3px;
+  margin: 5px;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: row;
+}
