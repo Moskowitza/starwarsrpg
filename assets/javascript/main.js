@@ -1,7 +1,7 @@
 // create characters each character has Health Points`, `Attack Power` and `Counter Attack Power`.
 const characters = [
   {
-    name: "yoda",
+    name: 'yoda',
     age: 1000,
     healthPoints: 100,
     attackPower: 8,
@@ -16,7 +16,7 @@ const characters = [
     },
   },
   {
-    name: "luke",
+    name: 'luke',
     age: 40,
     healthPoints: 95,
     attackPower: 7,
@@ -31,7 +31,7 @@ const characters = [
     },
   },
   {
-    name: "chewie",
+    name: 'chewie',
     age: 100,
     healthPoints: 80,
     attackPower: 6,
@@ -46,7 +46,7 @@ const characters = [
     },
   },
   {
-    name: "leia",
+    name: 'leia',
     age: 40,
     healthPoints: 90,
     attackPower: 6,
@@ -61,12 +61,13 @@ const characters = [
     },
   },
 ];
-let remainingCharacters = characters.slice();
+let remainingCharacters = characters.map(a => ({ ...a }));
 // Select our Dom Elements
-const charactersDiv = document.getElementById("characters");
-const heroDiv = document.getElementById("hero");
-const defenderDiv = document.getElementById("defender");
-const attackBtn = document.getElementById("attack");
+console.log(remainingCharacters);
+const charactersDiv = document.getElementById('characters');
+const heroDiv = document.getElementById('hero');
+const defenderDiv = document.getElementById('defender');
+const attackBtn = document.getElementById('attack');
 // the HTML cards
 let heroNode;
 let defenderNode;
@@ -96,25 +97,25 @@ function select(e) {
   if (!heroNode) {
     // 1) if no heroNode, get it from charactersDiv
     heroNode = document.getElementById(selectedName);
-    heroNode.setAttribute("class", "active");
+    heroNode.setAttribute('class', 'active');
     // 2) remove it from the charactersDiv
     charactersDiv.removeChild(heroNode);
     // 3) And place it in the heroDiv
-    heroDiv.innerHTML = "";
+    heroDiv.innerHTML = '';
     heroDiv.append(heroNode);
   } else if (!defenderNode) {
     // Repeat Pattern for defender
-    defenderDiv.innerHTML = "";
+    defenderDiv.innerHTML = '';
     defenderNode = document.getElementById(selectedName);
-    defenderNode.setAttribute("class", "active");
+    defenderNode.setAttribute('class', 'active');
     charactersDiv.removeChild(defenderNode);
     defenderDiv.append(defenderNode);
   }
 }
 function createCard(character) {
-  const charCard = document.createElement("DIV");
-  charCard.setAttribute("id", character.name);
-  charCard.setAttribute("class", "character");
+  const charCard = document.createElement('DIV');
+  charCard.setAttribute('id', character.name);
+  charCard.setAttribute('class', 'character');
   charCard.innerHTML = `
         <img src="assets/images/${character.name}.jpg">
         <div class="info">
@@ -130,10 +131,10 @@ function createCard(character) {
         }pts.</p>
         </div>
       `;
-  charCard.addEventListener("click", select);
+  charCard.addEventListener('click', select);
   if (defenderNode) {
     // keep adding active class back
-    charCard.setAttribute("class", "active");
+    charCard.setAttribute('class', 'active');
   }
   return charCard;
 }
@@ -144,7 +145,7 @@ function loadCharacters() {
 }
 
 function reset() {
-  remainingCharacters = characters.slice();
+  remainingCharacters = characters.map(a => ({ ...a }));
   console.log(remainingCharacters);
   charactersDiv.innerHTML = null;
   heroNode = null;
@@ -159,9 +160,9 @@ function reset() {
 // Select hero and defender
 
 function updateBattleField() {
-  heroDiv.innerHTML = "";
+  heroDiv.innerHTML = '';
   heroDiv.appendChild(createCard(hero));
-  defenderDiv.innerHTML = "";
+  defenderDiv.innerHTML = '';
   defenderDiv.appendChild(createCard(defender));
 }
 function battle() {
@@ -189,7 +190,7 @@ function battle() {
       alert(
         `Yeahoooo ${defender.name} has been defeted. Who will you fight next?`
       );
-      defenderDiv.innerHTML = "";
+      defenderDiv.innerHTML = '';
       defenderDiv.textContent = `Pick your next defender`;
       defender = null;
       defenderNode = null;
@@ -205,4 +206,4 @@ function battle() {
 
 // Kick off the Game
 reset();
-attackBtn.addEventListener("click", battle);
+attackBtn.addEventListener('click', battle);
