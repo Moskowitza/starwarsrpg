@@ -61,7 +61,7 @@ const characters = [
     },
   },
 ];
-
+let remainingCharacters = characters.slice();
 // Select our Dom Elements
 const charactersDiv = document.getElementById("characters");
 const heroDiv = document.getElementById("hero");
@@ -73,6 +73,7 @@ let defenderNode;
 // the objects we're moving to play area
 let hero;
 let defender;
+
 // todo create a score system
 // Score
 // const wins;
@@ -81,12 +82,16 @@ function select(e) {
   const selectedName = e.target.parentNode.id;
   if (!hero) {
     // if no hero, make one
-    hero = characters.find(character => character.name === selectedName);
-    // remainingCharacters = remainingCharacters.filter(char => char !== hero);
+    hero = remainingCharacters.find(
+      character => character.name === selectedName
+    );
+    remainingCharacters = remainingCharacters.filter(char => char !== hero);
   } else if (!defender) {
     // if there is a hero but no defender..
-    defender = characters.find(character => character.name === selectedName);
-    // remainingCharacters = remainingCharacters.filter(char => char !== defender);
+    defender = remainingCharacters.find(
+      character => character.name === selectedName
+    );
+    remainingCharacters = remainingCharacters.filter(char => char !== defender);
   }
   if (!heroNode) {
     // 1) if no heroNode, get it from charactersDiv
@@ -133,12 +138,14 @@ function createCard(character) {
   return charCard;
 }
 function loadCharacters() {
-  characters.forEach(character => {
+  remainingCharacters.forEach(character => {
     charactersDiv.appendChild(createCard(character));
   });
 }
 
 function reset() {
+  remainingCharacters = characters.slice();
+  console.log(remainingCharacters);
   charactersDiv.innerHTML = null;
   heroNode = null;
   defenderNode = null;
@@ -149,7 +156,6 @@ function reset() {
   heroDiv.textContent = `Pick a Hero`;
 }
 
-// const remainingCharacters = [...characters];
 // Select hero and defender
 
 function updateBattleField() {
@@ -176,7 +182,6 @@ function battle() {
       `you lose, rebel scum! ${hero.name} has ${
         hero.healthPoints
       } health remaining`
-      // todo RESET
     );
     reset();
   } else if (defender.healthPoints < 0) {
